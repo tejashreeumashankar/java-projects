@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My First Web Page</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Welcome to My First Web Page</h1>
+        <h2>About Me</h2>
+                  
+        <p> Welcome to my portfolio! My name is Tejashree, and I am an aspiring Front-End Developer with a strong interest in designing modern, responsive, and user-friendly websites. I enjoy exploring new technologies and turning creative ideas into interactive web experiences. Every project I create helps me improve my skills and brings me one step closer to becoming a professional web developer.<br>
+This portfolio showcases the knowledge and experience I have gained through my Front-End Development Internship. Throughout this journey, I have worked with HTML, CSS, JavaScript, Bootstrap, responsive design, API integration, and form validation. Each project has strengthened my understanding of web development and encouraged me to think creatively while solving real-world problems.<br>
+I believe that learning never stops, and I am always excited to explore new tools and technologies that help me grow as a developer. My goal is to build websites that are not only visually appealing but also functional, accessible, and enjoyable to use. Thank you for visiting my portfolio—I hope you enjoy exploring my work as much as I enjoyed creating it. </p>
+ </p>
+
+           <center>
+                   <img src="C:\Users\acer\OneDrive\Desktop\task_img.jpeg" 
+                   alt="image from pinterest" 
+                   width="200" height="300">
+            </center>
+            
+            <button id="colorButton">Change Background Color</button>
+            <h2>Posts from JSONPlaceholder API</h2>
+            <div id="posts"></div>
+            <script src="script.js"></script>
+
+    </body>
+</html>
+
+
+------------------------------------------------------------------------------------------------------------
+
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: linear-gradient(to right, #f3e8ff, #e0e7ff);
+    color: #1f2937;
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #7c3aed;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    color: #2563eb;
+    margin-top: 20px;
+    text-align: center;
+}
+
+p {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-size: 1rem;
+    text-align: justify;
+}
+
+center {
+    margin-top: 24px;
+}
+
+img {
+    width: 220px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    background: #b97fcf;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #af9ba8;
+    transform: scale(1.05);
+}
+
+#posts {
+    margin-top: 20px;
+}
+
+.post {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 90%;
+    margin: 15px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post h3 {
+    color:#6a1b9a;
+    margin-bottom: 10px;
+}
+
+.post p {
+    color: #555;
+    line-height: 1.6;
+}
+
+------------------------------------------------------------------------------------------------------------
+
+
+const colorButton = document.getElementById("colorButton");
+colorButton.addEventListener("click", function () {
+
+    const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+   
+  document.body.style.background = randomColor;
+
+});
+
+fetch("https://jsonplaceholder.typicode.com/posts?_limit=5")
+  .then(response => response.json())
+  .then(posts => {
+    const postsContainer = document.getElementById("posts");
+    posts.forEach(post => {
+      postsContainer.innerHTML += `
+        <div class="post">
+          <h3>${post.title}</h3>
+          <p>${post.body}</p>
+        </div>
+      `;
+    });
+  })
+  .catch(error => {
+    console.log("Error:", error);
+  });
+
